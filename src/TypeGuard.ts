@@ -1,33 +1,35 @@
 import { FunctionComponent } from "react";
 
-type machineType = "machine";
-type animalType = "animal";
-type humanType = "human";
+enum Kinds {
+  machine = "machine",
+  animal = "animal",
+  human = "human",
+}
 
 interface Kind {
-  type: machineType | animalType | humanType;
+  type: Kinds;
 }
 
 interface Machine extends Kind {
-  type: machineType;
+  type: Kinds.machine;
   codename: string;
 }
 
 interface Animal extends Kind {
-  type: animalType;
+  type: Kinds.animal;
   nickname: string;
 }
 
 interface Human extends Kind {
-  type: humanType;
+  type: Kinds.human;
   first: string;
   last: string;
 }
 
 const greetings = (thing: Human | Animal | Machine): void => {
-  if (thing.type === "machine") {
+  if (thing.type === Kinds.machine) {
     console.log("Hi machine", thing.codename);
-  } else if (thing.type === "animal") {
+  } else if (thing.type === Kinds.animal) {
     console.log("Hey animal", thing.nickname);
   } else {
     console.log("Hello human", `${thing.first} ${thing.last}`);
@@ -36,7 +38,7 @@ const greetings = (thing: Human | Animal | Machine): void => {
 
 const TypeGuard: FunctionComponent = () => {
   const x: Human = {
-    type: "human",
+    type: Kinds.human,
     first: "Hiro",
     last: "Ymagata",
   };

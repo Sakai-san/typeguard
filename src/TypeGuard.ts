@@ -12,38 +12,36 @@ interface Kind {
 
 interface Machine extends Kind {
   type: Kinds.machine;
-  codename: string;
+  name: string;
 }
 
 interface Animal extends Kind {
   type: Kinds.animal;
-  nickname: string;
+  name: string[];
 }
 
 interface Human extends Kind {
   type: Kinds.human;
-  first: string;
-  last: string;
+  name: string;
 }
 
 const greetings = (thing: Human | Animal | Machine): void => {
   if (thing.type === Kinds.machine) {
-    console.log("Hi machine", thing.codename);
+    console.log("Hi machine", thing.name);
   } else if (thing.type === Kinds.animal) {
-    console.log("Hey animal", thing.nickname);
+    console.log("Hey animal", thing.name.join());
   } else {
-    console.log("Hello human", `${thing.first} ${thing.last}`);
+    console.log("Hello human", `${thing.name}`);
   }
 };
 
 const TypeGuard: FunctionComponent = () => {
-  const x: Human = {
-    type: Kinds.human,
-    first: "Hiro",
-    last: "Ymagata",
+  const cat: Animal = {
+    type: Kinds.animal,
+    name: ["sweety", "honey", "cutie"],
   };
 
-  greetings(x);
+  greetings(cat);
 
   return null;
 };

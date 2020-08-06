@@ -1,38 +1,42 @@
 import { FunctionComponent } from "react";
 
-interface Base {
-  type: "user" | "device" | "good";
+type machineType = "machine";
+type animalType = "animal";
+type humanType = "human";
+
+interface Kind {
+  type: machineType | animalType | humanType;
 }
 
-interface User extends Base {
-  type: "user";
+interface Machine extends Kind {
+  type: machineType;
+  codename: string;
+}
+
+interface Animal extends Kind {
+  type: animalType;
+  nickname: string;
+}
+
+interface Human extends Kind {
+  type: humanType;
   first: string;
   last: string;
 }
 
-interface Device extends Base {
-  type: "device";
-  serial: string;
-}
-
-interface Good extends Base {
-  type: "good";
-  brand: string;
-}
-
-const greetings = (thing: User | Device | Good): void => {
-  if (thing.type === "user") {
-    console.log("User object", `${thing.first} ${thing.last}`);
-  } else if (thing.type === "device") {
-    console.log("Device object", thing.serial);
+const greetings = (thing: Human | Animal | Machine): void => {
+  if (thing.type === "machine") {
+    console.log("Hi machine", thing.codename);
+  } else if (thing.type === "animal") {
+    console.log("Hey animal", thing.nickname);
   } else {
-    console.log("Good object", thing.brand);
+    console.log("Hello human", `${thing.first} ${thing.last}`);
   }
 };
 
 const TypeGuard: FunctionComponent = () => {
-  const x: User = {
-    type: "user",
+  const x: Human = {
+    type: "human",
     first: "Hiro",
     last: "Ymagata",
   };
